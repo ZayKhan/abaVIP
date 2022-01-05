@@ -12,6 +12,69 @@ local PlayerGui = Player:WaitForChild("PlayerGui")
 local banRemote
 local ban_menu_function = game:GetService("ReplicatedStorage"):WaitForChild("GetPServerBanMenu")
 
+--//UI_SETUP//--
+local TweenService = game:GetService("TweenService")
+
+local alertUI = Instance.new("ScreenGui")
+alertUI.Name = "alertUI"
+syn.protect_gui(alertUI)
+
+local Frame = Instance.new("Frame", alertUI)
+Frame.Name = "alertTemplate"
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.Position = UDim2.new(4.5, 0, 0.99, 0)
+Frame.BackgroundTransparency = 0
+Frame.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+Frame.Size = UDim2.new(0, 700/1.1, 0, 350/1.075)
+Frame.SizeConstraint = Enum.SizeConstraint.RelativeXY
+Frame.ClipsDescendants = true
+
+local UICorner = Instance.new("UICorner", Frame)
+UICorner.CornerRadius = UDim.new(0, 10)
+
+local topText = Instance.new("TextLabel", Frame)
+topText.Position = UDim2.new(0.5, -100, 0.1, -25)
+topText.Size = UDim2.new(0, 200, 0, 50)
+topText.TextColor3 = Color3.fromRGB(129, 129, 129)
+topText.TextScaled = true
+topText.TextSize = 14
+topText.BackgroundTransparency = 1 
+topText.Font = "Nunito"
+topText.Name = "titleText"
+
+local middleText = Instance.new("TextLabel", Frame)
+middleText.Position = UDim2.new(0.5, -225, 0.5, -82)
+middleText.Size = UDim2.new(0, 450, 0, 165)
+middleText.TextColor3 = Color3.fromRGB(129, 129, 129)
+middleText.TextSize = 50
+middleText.BackgroundTransparency = 1 
+middleText.Font = "Nunito"
+middleText.Name = "middleText"
+
+alertUI.Parent = game:GetService("CoreGui")
+
+function alert(alerttype, infoTable)
+    if alerttype then
+        local newFrame = Frame:Clone()
+        newFrame.Parent = alertUI
+        newFrame:WaitForChild("titleText").Text = infoTable.Title
+        newFrame:WaitForChild("middleText").Text = infoTable.Description
+        TweenService:Create(newFrame, TweenInfo.new(0.75, Enum.EasingStyle.Quart), 
+            {
+                Position = UDim2.new(0.99, -350, 0.99, -175)
+            }):Play()
+        
+        task.wait(3)
+        
+         TweenService:Create(newFrame, TweenInfo.new(1.25, Enum.EasingStyle.Back, Enum.EasingDirection.InOut), 
+            {
+                Position = UDim2.new(4.5, 0, 0.99, 0)
+            }):Play()
+            
+        game:GetService("Debris"):AddItem(newFrame, 1)
+    end
+end
+    
 --//WHEEL_TABLES//--
 local chikaSkins = {"Chika Fujiwara"}
 local Ice = {"Todoroki", "Rukia", "Toshiro", "Grey Fullbuster"}
@@ -108,10 +171,8 @@ function banRoster(rosterName)
 	local mainTable
 	
 	task.spawn(function()
-	    local hint = Instance.new("Hint", workspace)
-	    game:GetService("Debris"):AddItem(hint, 3)
-	    hint.Text = rosterName.. " characters were spun from the randomizer!"
-	  end)
+	    alert("alert", {Title = "Wheel Spun!", Description = rosterName.. " characters were spun from the randomizer!"})
+	end)
 
 	if rosterName == "chikaSkins" then
 		mainTable = chikaSkins
