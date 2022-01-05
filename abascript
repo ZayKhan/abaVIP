@@ -1,0 +1,228 @@
+local Player = game:GetService("Players").LocalPlayer
+local HUD = Player:WaitForChild("PlayerGui"):WaitForChild("HUD")
+local characterSelect = HUD:WaitForChild("CharacterSelect"):WaitForChild("Characters")
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+--//VIP//--
+--local VIP = game:GetService("ReplicatedStorage"):WaitForChild("VIP")
+--local VIPMenu = Player:WaitForChild("PlayerGui"):WaitForChild("Vip")
+--local VIPFrame = VIPMenu:WaitForChild("Frame")
+
+--//BANS//--
+local banRemote
+local ban_menu_function = game:GetService("ReplicatedStorage"):WaitForChild("GetPServerBanMenu")
+
+--//WHEEL_TABLES//--
+local chikaSkins = {"Chika Fujiwara"}
+local Ice = {"Todoroki", "Rukia", "Toshiro", "Grey Fullbuster"}
+local Espada = {"Coyote Starrk", "Ulquiorra", "Grimmjow", "Gin"}
+local teamSeven = {"Naruto", "Sasuke", "Kakashi", "Chika Fujiwara"}
+local Uchiha = {"Itachi", "Edo Madara", "Sasuke [Shippuden]", "Sasuke"}
+local Akatsuki = {"Zabuza", "Sasuke [Shippuden]", "Itachi", "Pain", "Edo Madara"}
+local Bald = {"Yamamoto", "Krillin", "Piccolo", "Whitebeard", "Frieza", "Saitama"}
+local strawhatPTS = {"Luffy [Pre-Timeskip]", "Zoro [Pre-Timeskip]", "Sanji [Pre-Timeskip]", "GOD Usopp"}
+local strawhatTS = {"Luffy [Timeskip]", "Zoro [Timeskip]", "Sanji [Timeskip]", "GOD Usopp"}
+local Fate = {"Shirou Emiya", "Saber", "Gilgamesh", "Kiritsugu", "Cu Chulainn", "Iskandar"}
+local Kage = {"Kakashi", "Gaara", "Sasuke [Shippuden]", "Naruto [Shippuden]", "Minato [4th Hokage]"}
+local redHair = {"Shanks", "Gaara", "Pain", "Ichigo", "Ichigo [Hollow Mask]", "Todoroki", "Endeavor"}
+local dfUsers = {"Luffy [Pre-Timeskip]", "Trafalgar Law", "Ace", "Luffy [Timeskip]", "Kizaru", "Akainu", "Whitebeard"}
+local Superheroes = {"Deku", "Bakugou", "All Might", "Todoroki", "Tenya Iida", "Endeavor", "Lemillion"}
+local Haki = {"Zoro [Pre-Timeskip]", "Luffy [Timeskip]", "Zoro [Timeskip]", "Sanji [Timeskip]", "Shanks"}
+local Girls = {"Caulifla", "Rukia", "Yoruichi", "Rikka Takanashi", "Chika Fujiwara", "Jolyne Cujoh", "Saber"}
+local Wano = {"GOD Usopp", "Trafalgar Law", "Luffy [Timeskip]", "Zoro [Timeskip]", "Sanji [Timeskip]", "Akainu", "Kizaru", "Whitebeard", "Shanks"}
+local Marineford = {"Trafalgar Law", "Luffy [Pre-Timeskip]", "Ace", "Whitebeard", "Shanks", "Akainu", "Kizaru"}
+local oldMen = {"Whitebeard", "Frieza", "Broly", "Edo Madara", "Yamamoto", "All Might", "Old Joseph", "Dio Brando"}
+local Children = {"Luffy [Pre-Timeskip]", "Naruto", "Sasuke", "Rock Lee", "Neji", "Gaara", "Gon", "Killua", "Tanjiro"}
+local Samurai = {"Zoro [Pre-Timeskip]", "Zoro [Timeskip]", "Shanks", "Sasuke [Shippuden]", "Shinji", "Aizen", "Afro Samurai", "Hiei"}
+local jojoProtagonist = {"Jonathan Joestar", "Joseph Joestar", "Jotaro Kujo", "Josuke Higashikata", "Giorno Giovanna", "Jolyne Cujoh"}
+local standM1 = {"Jotaro Kujo", "Josuke Higashikata", "Giorno Giovanna", "Yoshikage Kira", "Jolyne Cujoh", "Dio Brando", "Doppio/Diavolo"}
+local whiteHair = {"Whitebeard", "Kakashi", "Gin", "Toshiro", "Yamamoto", "Todoroki", "Old Joseph", "Killua", "Accelerator", "Satoru Gojo"}
+local onepieceTS = {"Luffy [Timeskip]", "Zoro [Timeskip]", "Sanji [Timeskip]", "Trafalgar Law", "Kizaru", "Akainu", "GOD Usopp", "Shanks", "Whitebeard"}
+local Gamepasses = {"Whitebeard", "Shanks", "Broly", "Goku Black", "Minato [4th Hokage]", "Edo Madara", "Kisuke", "Yamamoto", "Dio Brando", "Doppio/Diavolo"}
+local onepiecePTS = {"Luffy [Pre-Timeskip]", "Zoro [Pre-Timeskip]", "Sanji [Pre-Timeskip]", "Trafalgar Law", "Ace", "Kizaru", "Akainu", "Shanks", "Whitebeard"}
+local edgyAntagonist = {"Dio Brando", "Goku Black", "Edo Madara", "Ulquiorra", "Doppio/Diavolo", "Itachi", "Sasuke [Shippuden]", "Sasuke", "Gaara", "Aizen", "Pain"}
+local Saiyans = {"Goku [Namek]", "Vegeta [Android Saga]", "Gohan [Teen]", "Goku [Buu Saga]", "Future Trunks", "Caulifla", "Vegeta [Majin]", "Vegito", "Broly", "Goku Black"}
+local evasive = {"Shanks", "Vegeta [Android Saga]", "Broly", "Might Guy", "Rukia", "Coyote Starrk", "Ulquiorra", "Aizen", "Kisuke", "Rikka Takanashi", "Kazuma", "Kiritsugu"}
+local Fire = {"Sanji [Pre-Timeskip]", "Ace", "Sanji [Timeskip]", "GOD Usopp", "Sasuke", "Itachi", "Edo Madara", "Kisuke", "Yamamoto", "Bakugou", "Todoroki", "Endeavor", "Jolyne Cujoh", "Tanjiro", "Shirou Emiya", "Natsu"}
+local Hats = {"Luffy [Pre-Timeskip]", "Trafalgar Law", "Luffy [Pre-Timeskip]", "Zoro [Timeskip]", "Akainu", "Whitebeard", "Shanks", "Shinji", "Shunsui", "Grimmjow", "Coyote Starrk", "Ulquiorra", "Kisuke", "Yamamoto", "Tanjiro", "Jotaro Kujo"}
+local edgyCharacters = {"Dio Brando", "Goku Black", "Edo Madara", "Ulquiorra", "Doppio/Diavolo", "Itachi", "Sasuke [Shippuden]", "Sasuke", "Gaara", "Aizen", "Pain", "Killua", "Illumi", "Hiei", "Jotaro Kujo", "Todoroki", "Bakugou", "Ichigo [Hollow Mask]"}
+local Flying = {"Luffy [Pre-Timeskip]", "Zoro [Timeskip]", "Sanji [Timeskip]", "Goku [Namek]", "Vegeta [Android Saga]", "Piccolo", "Goku [Buu Saga]", "Future Trunks", "Vegito", "Rikka Takanashi", "Chika Fujiwara", "Naruto", "Might Guy", "Edo Madara", "Endeavor", "Cu Chulainn", "Natsu"}
+local Beams = {"Goku [Namek]", "Vegeta [Android Saga]", "Piccolo", "Krillin", "Gohan [Teen]", "Goku [Buu Saga]", "Future Trunks", "Caulifla", "Vegito", "Frieza", "Goku Black", "Sasuke [Shippuden]", "Shinji", "Grimmjow", "Coyote Starrk", "Ulquiorra", "Ichigo [Hollow Mask]", "Bakugou", "Joseph Joestar"}
+local blackHair = {"Luffy [Pre-Timeskip]", "Trafalgar Law", "Ace", "Luffy [Timeskip]", "Kizaru", "Goku [Namek]", "Vegeta [Android Saga]", "Goku Black", "Sasuke", "Rock Lee", "Zabuza", "Sasuke [Shippuden]", "Itachi", "Edo Madara", "Rukia", "Byakuya", "Shunsui", "Ulquiorra", "Illumi", "Hiei", "Kiritsugu"}
+local Teleport = {"Zoro [Pre-Timeskip]", "Trafalgar Law", "Luffy [Timeskip]", "Kizaru", "Shanks", "Gohan [Teen]", "Goku [Buu Saga]", "Vegito", "Broly", "Goku Black", "Minato [4th Hokage]", "Rukia", "Grimmjow", "Aizen", "Kisuke", "Yamamoto", "Dio Brando", "Doppio/Diavolo", "Kazuma", "Hiei", "Kiritsugu", "Yuji Itadori", "Satoru Gojo"}
+local Sensei = {"Whitebeard", "Vegeta [Android Saga]", "Piccolo", "Gohan [Teen]", "Naruto", "Kakashi", "Zabuza", "Naruto [Shippuden]", "Might Guy", "Minato [4th Hokage]", "Edo Madara", "Satoru Gojo", "Rukia", "Shinji", "Byakuya", "Shunsui", "Toshiro", "Yoruichi", "Kisuke", "Yamamoto", "All Might", "Endeavor", "Jotaro Kujo", "Dio Brando", "Saitama"}
+local Swords = {"Zoro [Pre-Timeskip]", "Trafalgar Law", "Zoro [Timeskip]", "Whitebeard", "Shanks", "Zabuza", "Sasuke [Shippuden]", "Ichigo", "Rukia", "Shinji", "Byakuya", "Shunsui", "Grimmjow", "Gin", "Coyote Starrk", "Toshiro", "Ulquiorra", "Ichigo [Hollow Mask]", "Aizen", "Kisuke", "Yamamoto", "Tanjiro", "Rikka Takanashi", "Kazuma", "Afro Samurai", "Hiei", "Shirou Emiya", "Saber", "Gilgamesh", "Cu Chulainn", "Iskandar"}
+local Rivals = {"Naruto", "Sasuke", "Kakashi", "Might Guy", "Sasuke [Shippuden]", "Naruto [Shippuden]", "Neji", "Rock Lee", "Goku [Namek]", "Vegeta [Android Saga]", "Goku [Buu Saga]", "Vegeta [Majin]", "Future Trunks", "Frieza", "Vegito", "Goku Black", "Zoro [Pre-Timeskip]", "Sanji [Pre-Timeskip]", "Zoro [Timeskip]", "Sanji [Timeskip]", "Akainu", "Whitebeard", "Luffy [Pre-Timeskip]", "Shanks", "Shinji", "Aizen", "Ichigo", "Grimmjow", "Deku", "Bakugou", "Todoroki", "Endeavor", "All Might", "Jotaro Kujo", "Dio Brando", "Joseph Joestar", "Gon", "Killua", "Yusuke Urameshi", "Hiei", "Natsu", "Grey Fullbuster"}
+local mainProtagonist = {"Luffy [Pre-Timeskip]", "Zoro [Pre-Timeskip]", "Sanji [Pre-Timeskip]", "Trafalgar Law", "Luffy [Timeskip]", "Zoro [Timeskip]", "Sanji [Timeskip]", "GOD Usopp", "Goku [Namek]", "Vegeta [Android Saga]", "Piccolo", "Krillin", "Gohan [Teen]", "Goku [Buu Saga]", "Future Trunks", "Vegeta [Majin]", "Vegito", "Naruto", "Kakashi", "Naruto[Shippuden]", "Minato [4th Hokage]", "Ichigo", "Rukia", "Ichigo [Hollow Mask]", "Kisuke", "Deku", "Bakugou", "All Might", "Todoroki", "Tenya Iida", "Jonathan Joestar", "Joseph Joestar", "Jotaro Kujo", "Josuke Higashikata", "Giorno Giovanna", "Jolyne Cujoh", "Gon", "Killua", "Tanjiro", "Kazuma", "Afro Samurai", "Saitama", "Yusuke Urameshi", "Hiei", "Natsu", "Grey Fullbuster", "Yuji Itadori", "Satoru Gojo"}
+local Braindead = {"Zoro [Pre-Timeskip]", "GOD Usopp", "Kizaru", "Akainu", "Whitebeard", "Shanks", "Vegeta [Android Saga]", "Piccolo", "Gohan [Teen]", "Goku [Buu Saga]", "Vegito", "Broly", "Goku Black", "Naruto", "Zabuza", "Sasuke [Shippuden]", "Naruto [Shippuden]", "Itachi", "Might Guy", "Ichigo", "Rukia", "Byakuya", "Shunsui", "Grimmjow", "Gin", "Coyote Starrk", "Ulquiorra", "Ichigo [Hollow Mask]", "Yoruichi", "Kisuke", "Yamamoto", "Deku", "Todoroki", "Joseph Joestar", "Jotaro Kujo", "Josuke Higashikata", "Giorno Giovanna", "Jolyne Cujoh", "Dio Brando", "Doppio/Diavolo", "Gon", "Killua", "Hisoka", "Illumi", "Tanjiro", "Rikka Takanashi", "Kazuma", "Afro Samurai", "Chika Fujiwara", "Saitama", "Kirito", "Yusuke Urameshi", "Natsu", "Grey Fullbuster", "Accelerator", "Yuji Itadori", "Satoru Gojo"}
+
+local categoryWheel = {
+	"chikaSkins",
+	"Ice",
+	"Espada",
+	"teamSeven",
+	"Uchiha",
+	"Akatsuki",
+	"Bald",
+	"strawhatPTS",
+	"strawhatTS",
+	"Fate",
+	"Kage",
+	"redHair",
+	"dfUsers",
+	"Superheroes",
+	"Haki",
+	"Girls",
+	"Wano",
+	"Marineford",
+	"oldMen",
+	"Children",
+	"Samurai",
+	"jojoProtagonist",
+	"standM1",
+	"whiteHair",
+	"onepieceTS",
+	"Gamepasses",
+	"edgyAntagonist",
+	"Saiyans",
+	"evasive",
+	"Fire",
+	"Hats",
+	"edgyCharacters",
+	"Flying",
+	"Beams",
+	"blackHair",
+	"Teleport",
+	"Sensei",
+	"Swords",
+	"Rivals",
+	"mainProtagonist",
+	"Braindead"
+}
+
+function randomMap(mapType)
+    
+end
+
+function banRoster(rosterName)
+	local mainTable
+	
+	task.spawn(function()
+	    local hint = Instance.new("Hint", workspace)
+	    game:GetService("Debris"):AddItem(hint, 3)
+	    hint.Text = rosterName.. " characters were spun from the randomizer!"
+	  end)
+
+	if rosterName == "chikaSkins" then
+		mainTable = chikaSkins
+	elseif rosterName == "Ice" then
+		mainTable = Ice
+	elseif rosterName == "Espada" then
+		mainTable = Espada
+	elseif rosterName == "teamSeven" then
+		mainTable = teamSeven
+	elseif rosterName == "Uchiha" then
+		mainTable = Uchiha
+	elseif rosterName == "Akatsuki" then
+		mainTable = Akatsuki
+	elseif rosterName == "Bald" then
+		mainTable = Bald
+	elseif rosterName == "strawhatPTS" then
+		mainTable = strawhatPTS
+	elseif rosterName == "strawhatTS" then
+		mainTable = strawhatTS
+	elseif rosterName == "Fate" then
+		mainTable = Fate
+	elseif rosterName == "Kage" then
+		mainTable = Kage
+	elseif rosterName == "redHair" then
+		mainTable = redHair
+	elseif rosterName == "dfUsers" then
+		mainTable = dfUsers
+	elseif rosterName == "Superheroes" then
+		mainTable = Superheroes
+	elseif rosterName == "Haki" then
+		mainTable = Haki
+	elseif rosterName == "Girls" then
+		mainTable = Girls
+	elseif rosterName == "Wano" then
+		mainTable = Wano
+	elseif rosterName == "Marineford" then
+		mainTable = Marineford
+	elseif rosterName == "oldMen" then
+		mainTable = oldMen
+	elseif rosterName == "Children" then
+		mainTable = Children
+	elseif rosterName == "Samurai" then
+		mainTable = Samurai
+	elseif rosterName == "jojoProtagonist" then
+		mainTable = jojoProtagonist
+	elseif rosterName == "standM1" then
+		mainTable = standM1
+	elseif rosterName == "whiteHair" then
+		mainTable = whiteHair
+	elseif rosterName == "onepieceTS" then
+		mainTable = onepieceTS
+	elseif rosterName == "Gamepasses" then
+		mainTable = Gamepasses
+	elseif rosterName == "onepiecePTS" then
+		mainTable = onepiecePTS
+	elseif rosterName == "edgyAntagonist" then
+		mainTable = edgyAntagonist
+	elseif rosterName == "Saiyans" then
+		mainTable = Saiyans
+	elseif rosterName == "evasive" then
+		mainTable = evasive
+	elseif rosterName == "Fire" then
+		mainTable = Fire
+	elseif rosterName == "Hats" then
+		mainTable = Hats
+	elseif rosterName == "edgyCharacters" then
+		mainTable = edgyCharacters
+	elseif rosterName == "Flying" then
+		mainTable = Flying
+	elseif rosterName == "Beams" then
+		mainTable = Beams
+	elseif rosterName == "blackHair" then
+		mainTable = blackHair
+	elseif rosterName == "Teleport" then
+		mainTable = Teleport
+	elseif rosterName == "Sensei" then
+		mainTable = Sensei
+	elseif rosterName == "Swords" then
+		mainTable = Swords
+	elseif rosterName == "Rivals" then
+		mainTable = Rivals
+	elseif rosterName == "mainProtagonist" then
+		mainTable = mainProtagonist
+	elseif rosterName == "Braindead" then
+		mainTable = Braindead
+	end
+
+	for i, banLists in pairs(characterSelect:GetChildren()) do
+	    if i % 2 == 0 then
+	        task.wait()
+	    end
+   
+		if i == 1 then
+			ban_menu_function:InvokeServer()
+			PlayerGui:WaitForChild("BanChooserPrivate")
+			PlayerGui:WaitForChild("BanChooserPrivate"):WaitForChild("rem"):FireServer("pass")
+		end
+
+		for i, charactersBan in pairs(banLists:GetChildren()) do
+			if charactersBan:IsA("ImageButton") and not table.find(mainTable, charactersBan.Name) then
+			    Player:WaitForChild("PlayerGui"):WaitForChild("BanChooserPrivate").Enabled = false
+				PlayerGui:WaitForChild("BanChooserPrivate"):WaitForChild("rem"):FireServer("ban", charactersBan.Name)
+			end
+		end
+	end
+
+	task.wait(2)
+	Player:WaitForChild("PlayerGui"):WaitForChild("BanChooserPrivate"):Destroy()
+
+end
+
+banRoster(categoryWheel[math.random(1, #categoryWheel)])
+
+--VIP:FireServer(VIPMenu, VIPMenu:WaitForChild("Cancel"))
