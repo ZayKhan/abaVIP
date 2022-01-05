@@ -265,15 +265,16 @@ function banRoster(rosterName)
 	    end
    
 		if i == 1 then
-			ban_menu_function:InvokeServer()
-			PlayerGui:WaitForChild("BanChooserPrivate")
-			PlayerGui:WaitForChild("BanChooserPrivate"):WaitForChild("rem"):FireServer("pass")
+		   ban_menu_function:InvokeServer()
+		   PlayerGui:WaitForChild("BanChooserPrivate")
+		   PlayerGui:WaitForChild("BanChooserPrivate"):WaitForChild("rem"):FireServer("pass")
+		   Player:WaitForChild("PlayerGui"):WaitForChild("BanChooserPrivate").Enabled = false
 		end
 
 		for i, charactersBan in pairs(banLists:GetChildren()) do
 			if charactersBan:IsA("ImageButton") and not table.find(mainTable, charactersBan.Name) then
 			    Player:WaitForChild("PlayerGui"):WaitForChild("BanChooserPrivate").Enabled = false
-				PlayerGui:WaitForChild("BanChooserPrivate"):WaitForChild("rem"):FireServer("ban", charactersBan.Name)
+			    PlayerGui:WaitForChild("BanChooserPrivate"):WaitForChild("rem"):FireServer("ban", charactersBan.Name)
 			end
 		end
 	end
