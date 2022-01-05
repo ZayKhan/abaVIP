@@ -17,7 +17,6 @@ local TweenService = game:GetService("TweenService")
 
 local alertUI = Instance.new("ScreenGui")
 alertUI.Name = "alertUI"
-syn.protect_gui(alertUI)
 
 local Frame = Instance.new("Frame", alertUI)
 Frame.Name = "alertTemplate"
@@ -171,7 +170,7 @@ function banRoster(rosterName)
 	local mainTable
 	
 	task.spawn(function()
-	    alert("alert", {Title = "Wheel Spun!", Description = rosterName.. "\n characters were spun from the randomizer!"})
+	    alert("alert", {Title = "Wheel Spun!", Description = rosterName.. " characters were spun from the randomizer!"})
 	end)
 
 	if rosterName == "chikaSkins" then
